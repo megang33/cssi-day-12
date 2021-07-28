@@ -1,8 +1,13 @@
+let googleUserId = null;
+let userName = null;
+let colors = ["#ffe9ad", "#a3ebff", "#abffa3", "#c8acfc", "#fcacf0"]
+
 window.onload = event => {
     firebase.auth().onAuthStateChanged(user =>{
         if(user){ //checks if the user variable is null
             console.log("signed in as ", user.displayName);
-            const googleUserId = user.uid;
+            userName = user.displayName;
+            googleUserId = user.uid;
             getNotes(googleUserId);
         } else{
             window.location = "index.html";
@@ -39,6 +44,9 @@ const createCard = (note) => {
                 </header>
                 <div class="card-content">
                     <div class="content">${note.text}</div>
+                </div>
+                <div class="card-content card">
+                    <div class="content">Created by ${userName}</div>
                 </div>
             </div>
         </div>
